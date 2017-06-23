@@ -1,0 +1,119 @@
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
+namespace FishTank
+{
+    public class FishTankXml
+    {
+        public FishTankXml() { }
+        public FishTankXml(FishTank fishTank)
+        {
+            //todo throw exception if null
+            if (fishTank == null)
+            {
+                throw new ArgumentException("Fish Tank cannot be null"); ;
+            }
+
+            FishTank = fishTank;
+        }
+        private FishTank FishTank { get; set; }
+
+        public XDocument GenerateFishTankXml()
+        {
+            XDocument fishTankXDoc = new XDocument(
+                new XElement("FishTank",
+                    new XElement("TotalFeed", FishTank.Feed),
+                    new XElement("Fishes")
+                )
+            );
+
+            var fishesXml = fishTankXDoc.Descendants("Fishes").FirstOrDefault();
+            if (fishesXml != null)
+            {
+                foreach (var fish in FishTank.Fish)
+                {
+                    fishesXml.Add(new XElement("Fish",
+                        new XAttribute("FishType", fish.FishType),
+                        new XElement("Name", fish.Name),
+                        new XElement("FoodRequired", fish.FoodRequired)
+                        )
+                    );
+                }
+            }
+            fishTankXDoc.Declaration = new XDeclaration("1.0", "utf-8", "true");
+            return fishTankXDoc;
+        }
+
+        public void SaveFishTankXMLToDisk(XDocument xmlDocument, string filePath)
+        {
+            xmlDocument.Save(filePath);
+        }
+
+        public void GenerateAndSaveFishTankXml(string filePath)
+        {
+            var xmlToSave = new XDocument();
+            xmlToSave = GenerateFishTankXml();
+
+            SaveFishTankXMLToDisk(xmlToSave, filePath);
+        }
+
+
+
+        public XDocument LoadFishTankFromFile (string filePath)
+        {
+            XDocument importedFileXml = XDocument.Load(filePath);
+            return importedFileXml;
+        }
+
+        public FishTank ImportFishTankXmlToFishTank (XDocument fishTankXml)
+        {
+            var fishTank = new FishTank();
+
+            foreach (XElement xe in fishTankXml.Descendants("Fish"))
+            {
+                //To do - switch
+                switch (xe.Attribute("FishType").Value)
+                {
+
+
+                    case "GoldFish":
+                    {
+                            fishTank.AddFish(new GoldFish(xe.Element("Name").Value));
+                            break;
+                    }
+                    case "AngelFish":
+                        {
+                            fishTank.AddFish(new AngelFish(xe.Element("Name").Value));
+                            break;
+                        }
+                    case "BabelFish":
+                        {
+                            fishTank.AddFish(new BabelFish(xe.Element("Name").Value));
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+            }
+
+            return fishTank;
+        }
+
+        public FishTank LoadFishTankFromXmlFileAndCreateFishTank(string filePath)
+        {
+            var fishXml = new XDocument(LoadFishTankFromFile(filePath));
+            var fishTank = new FishTank();
+            fishTank = ImportFishTankXmlToFishTank(fishXml);
+            return fishTank;
+        }
+
+    }
+}
