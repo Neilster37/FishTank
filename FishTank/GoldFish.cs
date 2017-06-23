@@ -8,6 +8,7 @@ namespace FishTank
 {
     public class GoldFish : Fish
     {
+        public GoldFish() : base() { }
         public GoldFish(string name) : base(name) { }
 
         public override string FishType { get { return "GoldFish"; } }

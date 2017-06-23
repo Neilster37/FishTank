@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
@@ -39,7 +40,7 @@ namespace FishTank
                 foreach (var fish in FishTank.Fish)
                 {
                     fishesXml.Add(new XElement("Fish",
-                        new XAttribute("FishType", fish.FishType),
+                        new XAttribute("FishType", fish.GetType().AssemblyQualifiedName),
                         new XElement("Name", fish.Name),
                         new XElement("FoodRequired", fish.FoodRequired)
                         )
@@ -77,31 +78,17 @@ namespace FishTank
 
             foreach (XElement xe in fishTankXml.Descendants("Fish"))
             {
-                //To do - switch
-                switch (xe.Attribute("FishType").Value)
-                {
+                string assemblyQualifiedName = xe.Attribute("FishType").Value;
+                string fishName = xe.Element("Name").Value;
 
+                // Get the type contained in the name string
+                Type type = Type.GetType(assemblyQualifiedName, true);
 
-                    case "GoldFish":
-                    {
-                            fishTank.AddFish(new GoldFish(xe.Element("Name").Value));
-                            break;
-                    }
-                    case "AngelFish":
-                        {
-                            fishTank.AddFish(new AngelFish(xe.Element("Name").Value));
-                            break;
-                        }
-                    case "BabelFish":
-                        {
-                            fishTank.AddFish(new BabelFish(xe.Element("Name").Value));
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
+                // create an instance of that type
+                Fish newFish = Activator.CreateInstance(type) as Fish;
+                newFish.Name = fishName;
+
+                fishTank.AddFish((Fish)newFish);
             }
 
             return fishTank;

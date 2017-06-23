@@ -55,20 +55,21 @@ namespace FishTank.Tests
             //Arrange
             string fishXml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <FishTank>
+  <TotalFeed>0.7</TotalFeed>
   <Fishes>
-    <Fish FishType=""GoldFish"">
+    <Fish FishType=""FishTank.GoldFish, FishTank, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"">
       <Name>Neil</Name>
       <FoodRequired>0.1</FoodRequired>
     </Fish>
-    <Fish FishType=""GoldFish"">
+    <Fish FishType=""FishTank.GoldFish, FishTank, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"">
       <Name>Boris</Name>
       <FoodRequired>0.1</FoodRequired>
     </Fish>
-    <Fish FishType=""BabelFish"">
+    <Fish FishType=""FishTank.BabelFish, FishTank, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"">
       <Name>Zaphod</Name>
       <FoodRequired>0.3</FoodRequired>
     </Fish>
-    <Fish FishType=""AngelFish"">
+    <Fish FishType=""FishTank.AngelFish, FishTank, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"">
       <Name>Charlie</Name>
       <FoodRequired>0.2</FoodRequired>
     </Fish>

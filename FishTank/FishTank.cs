@@ -67,7 +67,7 @@ namespace FishTank
         {
             foreach (var fish in Fish)
             {
-                Console.WriteLine(fish.Name+ " (" + fish.FishType + ")");
+                Console.WriteLine(fish.Name + " (" + fish.FishType + ")");
             }
         }
     }

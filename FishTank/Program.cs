@@ -21,17 +21,17 @@ namespace FishTank
 
             //Console.WriteLine(fishTank.Feed);
 
-            //var fishXml = new FishXml(fishTank);
-            //fishXml.GenerateAndSaveFishTankXml(@"c:\FishTank.xml");
+            //var fishXml = new FishTankXml(fishTank);
+            //fishXml.GenerateAndSaveFishTankXml(@"c:\FishTankXml\FishTank.xml");
             //fishTank.WriteAllFishToConsole();
 
 
 
             FishTank fishTank = new FishTank();
             var fishXml = new FishTankXml();
-            fishTank = fishXml.LoadFishTankFromXmlFileAndCreateFishTank(@"c:\FishTank.xml");
+            fishTank = fishXml.LoadFishTankFromXmlFileAndCreateFishTank(@"c:\FishTankXml\FishTank.xml");
             fishTank.WriteAllFishToConsole();
-            fishTank.WriteAllFishToConsole();
+
         }
     }
 }

@@ -4,6 +4,7 @@ namespace FishTank
 {
     public abstract class Fish
     {
+        protected Fish() { }
         protected Fish(string name)
         {
             Name = name;
