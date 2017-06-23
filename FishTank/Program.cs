@@ -31,7 +31,7 @@ namespace FishTank
             var fishXml = new FishTankXml();
             fishTank = fishXml.LoadFishTankFromXmlFileAndCreateFishTank(@"c:\FishTank.xml");
             fishTank.WriteAllFishToConsole();
-
+            fishTank.WriteAllFishToConsole();
         }
     }
 }
