@@ -47,7 +47,6 @@
     <Compile Include="BabelFish.cs" />
     <Compile Include="AngelFish.cs" />
     <Compile Include="FishTankXml.cs" />
-    <Compile Include="GitTest.cs" />
     <Compile Include="GoldFish.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
